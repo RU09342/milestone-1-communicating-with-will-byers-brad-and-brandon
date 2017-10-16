@@ -28,7 +28,7 @@ void main(void)
   P1DIR |= BIT2+BIT3+BIT4;                  // P1.2 , P1.3, P1.4 output
   P1SEL |= BIT2+BIT3+BIT4;                  // P1.2 and P1.3, P1.4 options select GPIO
 
-  TA0CCR0 = 1024;                           // PWM Period about 1khz
+  TA0CCR0 = 255;                           // PWM Period about 1khz
   TA0CCTL1 = OUTMOD_7;                      // CCR1 reset/set
   TA0CCTL2 = OUTMOD_7;                      // CCR2 reset/set
   TA0CCTL3 = OUTMOD_7;                      // CCR3 reset/set
@@ -62,19 +62,19 @@ __interrupt void USCI_A0_ISR(void)
                   case 1:                         // If 1 byte is received
                   {
                      R = UCA0RXBUF;               // R storage variable gets next byte from UART
-                     TA0CCR1 = R * 4;             // CCR1 gets PWM duty cycle for red LED
+                     TA0CCR1 = R;             // CCR1 gets PWM duty cycle for red LED
                      break;
                   }
                    case 2:                        // If 2 bytes are received
                    {
                      G = UCA0RXBUF;               // G storage variable gets next byte from UART
-                     TA0CCR2 = G * 4;             // CCR2 gets PWM duty cycle for green LED
+                     TA0CCR2 = G;             // CCR2 gets PWM duty cycle for green LED
                      break;
                    }
                    case 3:                        // If 3 bytes are received
                    {
                      B = UCA0RXBUF;               // B storage variable gets next byte from UART
-                     TA0CCR3 = B * 4;             // CCR3 gets PWM duty cycle for blue LED
+                     TA0CCR3 = B;             // CCR3 gets PWM duty cycle for blue LED
                      UCA0TXBUF = BIP-3;           // Beginning of new transmit message
                      break;
                    }
